@@ -499,13 +499,6 @@
                         kerja:true,
                         nominal:nominal
                     };
-
-                    this.kirimKeSheets({
-                        tanggal:d.toLocaleDateString("id-ID"),
-                        hari:d.toLocaleDateString("id-ID",{weekday:"long"}),
-                        jenis: nominal===this.gajiLibur ? "Libur/Weekend" : "Hari Kerja",
-                        nominal:nominal
-                    });
                 }
                 
                 localStorage.setItem(`absen_${this.tahunSekarang}`, JSON.stringify(this.dataAbsen));
@@ -547,17 +540,12 @@
                 });
 
                 if(!res.ok){
-                    throw new Error("HTTP "+res.status);
+                    throw new Error("HTTP " + res.status);
                 }
 
                 return await res.text();
-            },
-                        body:JSON.stringify(data)
-                    });
-                }catch(err){
-                    console.error("Gagal kirim ke Google Sheets",err);
-                }
             }
+
 
             updateDisplay() {
                 const totalHari = Object.values(this.dataAbsen).reduce((acc, bulan) => 
